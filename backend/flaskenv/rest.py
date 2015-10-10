@@ -6,7 +6,7 @@ rest = Flask(__name__)
 NUM_MOVIES = 5
 NUM_CATEGORIES = 5
 PREFERENCE_MATRIX = np.identity(5)
-PREFERENCE_DICT = {'Forrest Gump':0, 'Frozen':1}
+PREFERENCE_DICT = {'Forrest Gump':0, 'Frozen':1, 'Star Wars':2, 'Parent Trap':3,'The Notebook':4}
 
 # # CREATE USER - passes in user_name, URL of image
 @rest.route('/makeuser', methods = ['POST'])
@@ -21,7 +21,7 @@ def create_user():
         'preferences': zerolist
     }
     # SEND INFO TO DATABASE
-
+    
 
 	return jsonify({'user': user}), 201
 
@@ -48,10 +48,7 @@ def send_preferences():
 # # GET PREFERENCES - return PREFERENCES, URL
 @rest.route('/getpreferences/<string:username>', methods = ['GET'])
 def get_preferences(username):
-	# QUERY DATABASE FOR PREFERENCES
-
-
-
+	# QUERY DATABASE FOR PREFERENCES in return
 	return 
 
 # # GET MATCHES
