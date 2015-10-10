@@ -1,3 +1,0 @@
-* (detached from tag-message-release-1.10.3) d3db971d03696be518045c06a995181f17f4dcde Changing version from 1.10.2 to 1.10.3
-  release-1.10                               d3db971d03696be518045c06a995181f17f4dcde Changing version from 1.10.2 to 1.10.3
-Build info: gh-message-samples-package, 354
