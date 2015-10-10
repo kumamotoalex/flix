@@ -7,6 +7,7 @@ import TableRow from 'material-ui/lib/table/table-row';
 import TableHeaderColumn from 'material-ui/lib/table/table-header-column';
 import TableRowColumn from 'material-ui/lib/table/table-row-column';
 import TableBody from 'material-ui/lib/table/table-body';
+import RaisedButton from 'material-ui/lib/raised-button';
 
 let standardActions = [
   { text: 'Cancel' },
@@ -18,7 +19,7 @@ export default class UserList extends Component {
     return(
       <Table selectable={false}>
         <TableHeader adjustForCheckbox={false} displaySelectAll={false}>
-          <TableHeaderColumn colSpan="3" tooltip='Super Header' style={{textAlign: 'center'}}>
+          <TableHeaderColumn colSpan="3" style={{textAlign: 'center'}}>
           People to chill with
           </TableHeaderColumn>
         </TableHeader>
@@ -26,7 +27,7 @@ export default class UserList extends Component {
           <User />
         </TableBody>
       </Table>
-      );
+    );
   }
 }
 
@@ -34,10 +35,13 @@ class User extends Component {
   render() {
     return (
         <TableRow >
-<TableRowColumn>
-          <Avatar src = "../img/profile1.jpg" />
-            John Smith</TableRowColumn>
-            <TableRowColumn>Chill!</TableRowColumn>
+          <TableRowColumn colSpan="4">
+            <Avatar src = "../img/profile1.jpg" />
+            John Smith
+          </TableRowColumn>
+          <TableRowColumn>
+            <RaisedButton label="Chill" primary={true} />
+          </TableRowColumn>
         </TableRow>
     );
   }
