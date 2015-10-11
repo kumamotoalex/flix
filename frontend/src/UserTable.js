@@ -17,7 +17,7 @@ export default class UserTable extends Component {
   render() {
     var matches = this.state.matches.map((match) => {
       return (
-        <User name={match} />
+        <User name={match[0]} score={match[1]} isChill={match[2]}  />
       );
     });
 
@@ -74,14 +74,39 @@ constructor(props) {
             <Avatar src = {imgurl}/>
             {this.props.name}
           </TableRowColumn>
-          <TableRowColumn>
-            <RaisedButton label="Chill?" primary={true} onClick={SnackBar.show}/>
+          <TableRowColumn colSpan="4"style={{fontSize:'150%', textAlign: 'left'}}>
+            Chillscore:{this.props.score}
           </TableRowColumn>
           <TableRowColumn>
-            <RaisedButton label="Chill!" secondary={true}onClick={this.toast.show}/>
+            <RaisedButton style={{fontSize:'150%', textAlign: 'right'}}label="Chill?" primary={true} onClick={this.sendChill}/>
           </TableRowColumn>
         </TableRow>
     );
+  }
+
+  sendChill = () => {
+    var split = document.URL.split('/')
+    var name = split[split.length-1];
+
+    var data = {
+      username: name,
+      chill_person: this.props.name
+    };
+
+    $.ajax({
+      url:'http://localhost:5000/chill/',
+      contentType: 'application/json',
+      dataType:'json',
+      data:data,
+      type: 'POST',
+      processData: false,
+      success: (data) => {
+        this.setState(data);
+      },
+      error: (data) => {
+        console.error(data.statusText);
+      }
+    });
   }
 }
 

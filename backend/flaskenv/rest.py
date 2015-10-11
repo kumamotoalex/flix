@@ -163,8 +163,8 @@ def get_matches(username):
 	dbnames = UserDatabase.returnMemberArray()
 	for y in dbnames:
 		if y != username:
-			comparison = numpy.asscalar(np.array(calculate_score(UserDatabase.getPreference(y))))
-			results[y] = comparison.dot(p)
+			comparison = np.array(calculate_score(UserDatabase.getPreference(y)))
+			results[y] = np.asscalar(comparison.dot(p));
 	# # Put the top results into returnjson
 	for i in range(0,min(NUM_MATCHES, len(results))):
 		name = max(results.items(), key=operator.itemgetter(1))[0]
