@@ -4,27 +4,59 @@ import numpy as np
 import operator
 
 rest = Flask(__name__)
-NUM_MOVIES = 5
+NUM_MOVIES = 10
 NUM_CATEGORIES = 5
 NUM_MATCHES = 1
-PREFERENCE_MATRIX = np.identity(5)
-PREFERENCE_DICT = {'Forrest Gump':0, 'Frozen':1, 'Star Wars':2, 'Parent Trap':3,'The Notebook':4}
+PREFERENCE_MATRIX = np.identity(10)
+PREFERENCE_DICT = {'Forrest Gump':0, 'Frozen':1, 'Star_Wars':2, 'Parent_Trap':3,'The_Notebook':4, 'Harry_Potter':5, 'Bat_Man':6, 'Shawshank_Redemption':7, 'The_Hangover':8, 'Inception':9}
+INDEX_DICT = {0:'Forrest Gump', 1:'Frozen', 2:'Star_Wars', 3:'Parent_Trap',4:'The_Notebook', 5:'Harry_Potter', 6:'Bat_Man', 7:'Shawshank_Redemption', 8:'The_Hangover', 9:'Inception'}
 
 # ----------------WORK AROUND DATABASE---------------------
 database = [
     {
         'username': 'obama',
-        'imgurl': 'images/obama.jpeg',
-        'preferences': [0,1,1,0,1] 
+        'imgurl': '../img/obama.jpg',
+        'preferences': [0,1,1,0,1,0,0,0,0,0] 
     },
     {
         'username': 'oskibear',
-        'imgurl': 'images/oskibear.jpeg',
-        'preferences': [1,0,0,1,0] 
+        'imgurl': '../img/oski.jpg',
+        'preferences': [1,0,0,1,0,0,0,0,0,0] 
     }
 ]
 # ---------------------------------------------------------
 
+# # GET NOT RATED
+@rest.route('/getnotrated/<string:username>', methods = ['GET'])
+def get_not_rated(username):
+	s = []
+	result = []
+#  # GET INFO FROM DATABASE
+ 	for x in database:
+ 		if x['username'] == username:
+ 			s = x['preferences']
+			break
+	i = 0
+	while i < len(s):
+		if s[i] == 0:
+			result.append(INDEX_DICT[i])
+		i += 1
+
+	return jsonify({"notrated": result})
+
+# # RESET A USER
+@rest.route('/resetuser/<string:username>', methods = ['GET'])
+def reset_user(username):
+	zerolist = []
+	for i in range(0, NUM_MOVIES):
+		zerolist.append(0)
+
+#  # SEND INFO TO DATABASE
+ 	for x in database:
+ 		if x['username'] == username:
+ 			x['preferences'] = zerolist
+			return jsonify({'user': x['preferences']})
+	abort(404)
 
 # # CREATE USER - passes in user_name, URL of image
 @rest.route('/makeuser', methods = ['POST'])
@@ -36,7 +68,7 @@ def create_user():
 
 	user = {
         'username': request.json['username'],
-        'imgurl': request.json['imgurl'],
+        'imgurl': "../img/default.jpg",
         'preferences': zerolist
     }
  #    # SEND INFO TO DATABASE

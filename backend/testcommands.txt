@@ -11,3 +11,12 @@ curl -i http://localhost:5000/getpreferences/obama
 
 GET MATCHES
 curl -i http://localhost:5000/getmatches/obama
+
+RESET USER
+curl -i http://localhost:5000/resetuser/obama
+
+GET NOT RATED
+curl -i http://localhost:5000/getnotrated/obama
+
+
+
