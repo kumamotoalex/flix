@@ -38,7 +38,6 @@ def send_chill(username, chillname):
 	if username not in s:
 		s.append(username)
 		UserDatabase.changeChill(chillname, s)
-
 	return jsonify({'chillers': UserDatabase.getChill(chillname)}), 201
 
 

@@ -37,7 +37,7 @@ export default class UserTable extends Component {
 
   componentWillMount() {
     this.getUserList();
-    setInterval(this.getUserList, 500);
+    //setInterval(this.getUserList, 500);
   }
 
   getUserList = () => {
@@ -70,12 +70,12 @@ constructor(props) {
     var imgurl = "../img/" + this.props.name + ".jpg";
         return (
         <TableRow >
-          <TableRowColumn colSpan="4"style={{fontSize:'150%', textAlign: 'left'}}>
+          <TableRowColumn colSpan="2"style={{fontSize:'150%', textAlign: 'left'}}>
             <Avatar src = {imgurl}/>
             {this.props.name}
           </TableRowColumn>
           <TableRowColumn colSpan="4"style={{fontSize:'150%', textAlign: 'left'}}>
-            Chillscore:{this.props.score}
+          {this.props.isChill? "Wants to Chill" : "" }Chillscore: {this.props.score}
           </TableRowColumn>
           <TableRowColumn>
             <RaisedButton style={{fontSize:'150%', textAlign: 'right'}}label="Chill?" primary={true} onClick={this.sendChill}/>
@@ -87,25 +87,19 @@ constructor(props) {
   sendChill = () => {
     var split = document.URL.split('/')
     var name = split[split.length-1];
-
-    var data = {
-      username: name,
-      chill_person: this.props.name
-    };
-
+    var url = 'http://localhost:5000/chill/' + name +'/' this.props.name;
     $.ajax({
       url:'http://localhost:5000/chill/',
       contentType: 'application/json',
       dataType:'json',
-      data:data,
-      type: 'POST',
+      type: 'GET',
       processData: false,
       success: (data) => {
         this.setState(data);
       },
       error: (data) => {
         console.error(data.statusText);
-      }
+      }.bind(this)
     });
   }
 }
