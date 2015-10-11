@@ -7,7 +7,6 @@ import TableHeaderColumn from 'material-ui/lib/table/table-header-column';
 import TableRowColumn from 'material-ui/lib/table/table-row-column';
 import TableBody from 'material-ui/lib/table/table-body';
 import RaisedButton from 'material-ui/lib/raised-button';
-import MapDialog from './MapDialog.js';
 let standardActions = [
   { text: 'Cancel' },
   { text: 'Submit' }
@@ -43,7 +42,6 @@ class User extends Component {
             John Smith
           </TableRowColumn>
           <TableRowColumn>
-            <MapDialog />
           </TableRowColumn>
         </TableRow>
     );

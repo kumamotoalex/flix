@@ -11,21 +11,55 @@ import FloatingButton from 'material-ui/lib/floating-action-button';
 import IconButton from 'material-ui/lib/icon-button';
 
 export default class SuggestionBar extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {notRated:[]};
+  }
   render() {
+    console.log(this.state);
     return (
       <div className="row">
           <div className="col m2 offset-m12">
               <IconButton iconClassName="material-icons" tooltipPosition="bottom-center" tooltip="Reset preferences">autorenew</IconButton>
           </div>
         <div className="row">
-          <MovieCard title = "Forrest Gump" url="http://actuallyitdepends.files.wordpress.com/2012/01/forrestgump_mpw-19355.jpg"/>
-          <MovieCard title = "Frozen"url="https://owlswellblog.files.wordpress.com/2013/11/frozen-a4.jpg" />
+          <MovieList notRated={this.state.notRated}/>
         </div>
       </div>
     );
   }
+  componentWillMount() {
+    var url = 'http://localhost:5000/getnotrated/' + 'obama';
+    $.ajax({
+      url: url,
+      contentType: 'application/json',
+      dataType:'json',
+      type: 'GET',
+      processData: false,
+      success: function(data) {
+        this.setState(data);
+      }.bind(this),
+      error: function(data) {
+        console.error(data.statusText);
+      }.bind(this)
+    });
+  }
 }
+class MovieList extends Component {
+  render() {
+    var Movies = this.props.notRated.slice(0,4).map(function(movie, i){
+      return (
+        <MovieCard title={movie['title']} url = {movie['url']} />
+      )
+    });
 
+    return (
+      <div className="row">
+        {Movies}
+      </div>
+    );
+  }
+}
 class MovieCard extends Component {
   render() {
     let buttonStyle = {

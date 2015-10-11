@@ -42,10 +42,11 @@ def get_not_rated(username):
 	i = 0
 	while i < len(s):
 		if s[i] == 0:
-			result.append({INDEX_DICT[i]: "../img/" + INDEX_DICT[i]})
+			result.append({"title":INDEX_DICT[i],
+			               "url":"../img/"+INDEX_DICT[i] + ".jpg"})
 		i += 1
 
-	return jsonify({"notrated": result})
+	return jsonify({"notRated": result})
 
 # # RESET A USER
 @rest.route('/resetuser/<string:username>', methods = ['GET'])
