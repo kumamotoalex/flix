@@ -12,7 +12,7 @@ def generate_prefmatrix():
 		[0,				0,		1,			0,				0,			1,				0,			0,			0,				0], #Fantasy/Sci-Fi
 		[0,				0,		1,			0,				0,			1,				1,			0,			0,				1], #Action
 		[0,				0,		0,			0,				0,			1,				0,			0,			0,				1], #Mystery
-		[0,				1,		1,			0				0,			1,				1,			0,			0,				0], #Political
+		[0,				1,		1,			0,				0,			1,				1,			0,			0,				0], #Political
 		[0,				1,		0,			0,				0,			0,				0,			1,			0,				0]  #Animation
 		])
 		
