@@ -23,12 +23,18 @@ export default class SuggestionBar extends Component {
               <IconButton iconClassName="material-icons" tooltipPosition="bottom-center" tooltip="Reset preferences">autorenew</IconButton>
           </div>
         <div className="row">
-          <MovieList notRated={this.state.notRated}/>
+          <MovieList update={this.getNotRated} notRated={this.state.notRated}/>
         </div>
       </div>
     );
   }
+
   componentWillMount() {
+    this.getNotRated();
+  }
+
+  getNotRated = () => {
+    var self = this;
     var url = 'http://localhost:5000/getnotrated/' + 'obama';
     $.ajax({
       url: url,
@@ -49,10 +55,9 @@ class MovieList extends Component {
   render() {
     var Movies = this.props.notRated.slice(0,4).map(function(movie, i){
       return (
-        <MovieCard title={movie['title']} url = {movie['url']} />
+        <MovieCard update = {this.props.update} title={movie['title']} url = {movie['url']} />
       )
-    });
-
+    }.bind(this));
     return (
       <div className="row">
         {Movies}
@@ -98,9 +103,10 @@ class MovieCard extends Component {
       type: 'POST',
       data: data,
       processData: false,
-      success: function(data) {
+      success: (data) => {
         console.log(data);
-      }.bind(this),
+        this.props.update()
+      },
       error: function(data) {
         console.error(data.statusText);
       }.bind(this)
@@ -124,6 +130,7 @@ class MovieCard extends Component {
       processData: false,
       success: function(data) {
         console.log(data);
+        this.props.update();
       }.bind(this),
       error: function(data) {
         console.error(data.statusText);
