@@ -30,6 +30,20 @@ database = [
     }
 ]
 # ---------------------------------------------------------
+# # CHILL!!!
+@rest.route('/chill', methods = ['POST'])
+def send_chill():
+	# WHAT WE NEED TO BE SENT
+	u = request.json['username']
+	c = request.json['chill_person']
+
+	s = UserDatabase.getChill(c)
+	if u not in s:
+		s.append(u)
+		UserDatabase.changeChill(c, s)
+
+	return jsonify({'chillers': UserDatabase.getChill(c)}), 201
+
 
 # # GET NOT RATED
 @rest.route('/getnotrated/<string:username>', methods = ['GET'])
@@ -64,6 +78,7 @@ def reset_user(username):
 	# 		return jsonify({'user': x['preferences']})
 	# abort(404)
 	UserDatabase.changePreference(username, zerolist)
+	UserDatabase.changeChill(username, [])
 	return jsonify({'user': UserDatabase.getPreference(username)})
 
 # # CREATE USER - passes in user_name
@@ -77,12 +92,14 @@ def create_user(username):
 	user = {
 	       'username': username,
 	       'imgurl': "../img/default.jpg",
-	       'preferences': zerolist
+	       'preferences': zerolist,
+	       'chillers': []
 	   }
 	a = {
         'username': username,
         'imgurl': "../img/default.jpg",
-        'preferences': zerolist
+        'preferences': zerolist,
+        'chillers': []
     }
  #    # SEND INFO TO DATABASE
 	UserDatabase.addUser(user)
@@ -119,7 +136,7 @@ def send_preferences():
 	# 		return jsonify({'score': s}), 201
 	# abort(404)
 	UserDatabase.changePreference(u, s)
-	return jsonify({'score': UserDatabase.getPreference(u)})
+	return jsonify({'score': UserDatabase.getPreference(u)}), 201
 	
 
 # # # GET PREFERENCES - return PREFERENCES, URL -DEPRECATED
@@ -138,6 +155,7 @@ def get_matches(username):
 	results = {}
 	returnjson = []
 	scorev = calculate_score(UserDatabase.getPreference(username))
+	chillers = UserDatabase.getChill(username)
 	p = np.array(scorev)
 	# for x in database:
 	# 	if x['username'] == username:
@@ -148,9 +166,14 @@ def get_matches(username):
 			comparison = np.array(calculate_score(UserDatabase.getPreference(y)))
 			results[y] = comparison.dot(p)
 	# # Put the top results into returnjson
-	for i in range(0,NUM_MATCHES):
+	for i in range(0,min(NUM_MATCHES, len(results))):
 		name = max(results.items(), key=operator.itemgetter(1))[0]
-		returnjson.append(name)
+		stuff = [name,results[name],False]
+		if name in chillers:
+			stuff[2] = True
+			returnjson.append(stuff)
+		else:
+			returnjson.append(stuff)
 		results.pop(name)
 
 	return jsonify({'matches':returnjson})

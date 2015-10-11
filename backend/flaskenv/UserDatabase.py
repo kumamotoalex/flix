@@ -24,6 +24,11 @@ def getPreference(user):
 			return iterUser["preferences"]
 	return 0
 
+def getChill(user):
+	for iterUser in user_collection.find():
+		if (user == iterUser["username"]):
+			return iterUser["chillers"]
+	return 0
 #Given an user and a newVector, we change the preference vector of the specified user
 #@param user - user who's preference we change
 #@param newVector - new preference vector for our specified user
@@ -39,6 +44,16 @@ def changePreference(user, newVector):
 			return 1
 	return 0
  
+def changeChill(user, newVector):
+	for iterUser in user_collection.find():
+		if (user == iterUser["username"]):
+			user_collection.update(
+				{"username" : iterUser["username"]},
+				{ "$set" : {"chillers" : newVector}},
+				upsert = True
+				)
+			return 1
+	return 0
 #Given an user we will return his address as a string
 #@param user - user who's address we want
 #@return string - the address of the user's current location or 0 if the user is not in our database
