@@ -2,9 +2,9 @@ POST USER
 curl -i -H "Content-Type: application/json" -X POST -d '{"username":"alexk", "imgurl":"images/alexk.jpeg"}' http://localhost:5000/makeuser
 
 POST LIKES
-curl -i -H "Content-Type: application/json" -X POST -d '{"username":"obama", "movie_likes": ["Frozen", "Star Wars"], "movie_dislikes":["Parent Trap"]}' http://localhost:5000/sendscore
+curl -i -H "Content-Type: application/json" -X POST -d '{"username":"obama", "movie_likes": ["Frozen", "Star_Wars"], "movie_dislikes":["Parent_Trap"]}' http://localhost:5000/sendscore
 
-curl -i -H "Content-Type: application/json" -X POST -d '{"username":"alexk", "movie_likes": ["Frozen", "Star Wars"], "movie_dislikes":[]}' http://localhost:5000/sendscore
+curl -i -H "Content-Type: application/json" -X POST -d '{"username":"alexk", "movie_likes": ["Frozen", "Star_Wars"], "movie_dislikes":[]}' http://localhost:5000/sendscore
 
 GET PREFERENCES
 curl -i http://localhost:5000/getpreferences/obama

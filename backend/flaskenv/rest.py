@@ -3,7 +3,7 @@ from flask import Flask, request, jsonify, abort
 from flask.ext.cors import CORS
 import numpy as np
 import operator
-import json
+# import json
 import prefmatrix
 # import UserDatabase as ud
 
@@ -101,13 +101,13 @@ def send_preferences():
 		s[PREFERENCE_DICT[x]] = 1
 	for x in d:
 		s[PREFERENCE_DICT[x]] = -1
-	v = calculate_score(s)
+	# v = calculate_score(s)
 
 	# PUT VECTOR INTO MONGO DATABASE
 	for x in database:
 		if x['username'] == u:
-			x['preferences'] = v
-			return jsonify({'score': v}), 201
+			x['preferences'] = s
+			return jsonify({'score': s}), 201
 	abort(404)
 	# return jsonify({'mild success':'yay'}), 201
 	
