@@ -1,3 +1,4 @@
+
 POST USER
 curl -i -H "Content-Type: application/json" -X POST -d '{"username":"alexk", "imgurl":"images/alexk.jpeg"}' http://localhost:5000/makeuser
 

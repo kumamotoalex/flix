@@ -20,7 +20,7 @@ def addUser(user):
 #@return the preference vector for the given user 0 if the user is not in our database
 def getPreference(user):
 	for iterUser in user_collection.find():
-		if (user["username"] == iterUser["username"]):
+		if (user == iterUser["username"]):
 			return iterUser["preferences"]
 	return 0
 
@@ -30,7 +30,7 @@ def getPreference(user):
 #@return true if we can change the preference vector false otherwise
 def changePreference(user, newVector):
 	for iterUser in user_collection.find():
-		if (user["username"] == iterUser["username"]):
+		if (user == iterUser["username"]):
 			user_collection.update(
 				{"username" : iterUser["username"]},
 				{ "$set" : {"preferences" : newVector}},
@@ -44,7 +44,7 @@ def changePreference(user, newVector):
 #@return string - the address of the user's current location or 0 if the user is not in our database
 def returnAddress(user):
 	for iterUser in user_collection.find():
-		if (user["username"] == iterUser["username"]):
+		if (user == iterUser["username"]):
 			return iterUser["address"]
 	return 0
 
@@ -54,7 +54,7 @@ def returnAddress(user):
 #@return 1 if we can change the address 0 otherwise
 def changeAddress(user, newAddress):
 	for iterUser in user_collection.find():
-		if (user["username"] == iterUser["username"]):
+		if (user == iterUser["username"]):
 			user_collection.update(
 				{"username" : iterUser["username"]},
 				{ "$set" : {"address" : newAddress}},
@@ -63,6 +63,22 @@ def changeAddress(user, newAddress):
 			return 1
 	return 0
 
+
+def printAll():
+	for iterUser in user_collection.find():
+		print(iterUser["username"])
+
+def printAllPreferences():
+	for iterUser in user_collection.find():
+		print(iterUser["preferences"])
+
+def massCreate():
+	toAdd = ["james", "john", "rick", "abraham", "erika", "bobby", "ariele", "daniel", "andrew", "margie", "jason", "jay", "edward", "sum", "alex", "bowen"]
+	count = 0
+	for people in toAdd:
+		newUser = {"username" : people, "img" : "img.jpg", "preferences" : [count]}
+		addUser(newUser)
+		count = count + 1
 
 
 

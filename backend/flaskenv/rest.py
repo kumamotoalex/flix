@@ -3,6 +3,7 @@ from flask import Flask, request, jsonify, abort
 from flask.ext.cors import CORS
 import numpy as np
 import operator
+import UserDatabase
 
 rest = Flask(__name__)
 NUM_MOVIES = 10
@@ -35,10 +36,11 @@ def get_not_rated(username):
 	s = []
 	result = []
 #  # GET INFO FROM DATABASE
-	for x in database:
-		if x['username'] == username:
-			s = x['preferences']
-			break
+	# for x in database:
+	# 	if x['username'] == username:
+	# 		s = x['preferences']
+	# 		break
+	UserDatabase.getPreferences(username)
 	i = 0
 	while i < len(s):
 		if s[i] == 0:
@@ -62,7 +64,7 @@ def reset_user(username):
 			return jsonify({'user': x['preferences']})
 	abort(404)
 
-# # CREATE USER - passes in user_name, URL of image
+# # CREATE USER - passes in user_name
 @rest.route('/makeuser', methods = ['POST'])
 def create_user():
 	# CREATE NEW USER
@@ -75,10 +77,15 @@ def create_user():
         'imgurl': "../img/default.jpg",
         'preferences': zerolist
     }
+    a = {
+        'username': request.json['username'],
+        'imgurl': "../img/default.jpg",
+        'preferences': zerolist
+    }
  #    # SEND INFO TO DATABASE
-	database.append(user)
+	UserDatabase.addUser(user)
 
-	return jsonify({'user': user}), 201
+	return jsonify({'user': a}), 201
 
 
 # # SEND PREFERENCES
