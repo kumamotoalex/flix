@@ -4,15 +4,16 @@ from flask.ext.cors import CORS
 import numpy as np
 import operator
 import json
+import prefmatrix
 # import UserDatabase as ud
 
 rest = Flask(__name__)
 NUM_MOVIES = 10
 CORS(rest)
-NUM_MOVIES = 5
-NUM_CATEGORIES = 5
+NUM_MOVIES = 10
+NUM_CATEGORIES = 10
 NUM_MATCHES = 1
-PREFERENCE_MATRIX = np.identity(10)
+PREFERENCE_MATRIX = prefmatrix.generate_prefmatrix()
 PREFERENCE_DICT = {'Forrest_Gump':0, 'Frozen':1, 'Star_Wars':2, 'Parent_Trap':3,'The_Notebook':4, 'Harry_Potter':5, 'Bat_Man':6, 'Finding_Nemo':7, 'The_Hangover':8, 'Inception':9}
 INDEX_DICT = {0:'Forrest_Gump', 1:'Frozen', 2:'Star_Wars', 3:'Parent_Trap',4:'The_Notebook', 5:'Harry_Potter', 6:'Bat_Man', 7:'Finding_Nemo', 8:'The_Hangover', 9:'Inception'}
 
@@ -65,7 +66,7 @@ def reset_user(username):
 			return jsonify({'user': x['preferences']})
 	abort(404)
 
-# # CREATE USER - passes in user_name, URL of image
+# # CREATE USER - passes in user_name
 @rest.route('/makeuser', methods = ['POST'])
 def create_user():
 	# CREATE NEW USER
