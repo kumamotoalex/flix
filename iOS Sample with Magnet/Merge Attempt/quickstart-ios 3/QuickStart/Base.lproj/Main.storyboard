@@ -20,6 +20,16 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="mHB-zy-SMk">
+                        <barButtonItem key="leftBarButtonItem" style="plain" id="4eE-wT-lWS">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="k6k-jR-MrT">
+                                <rect key="frame" x="20" y="7" width="133" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Back"/>
+                                <connections>
+                                    <segue destination="jhC-oK-H6h" kind="show" id="Dx8-g2-kzC"/>
+                                </connections>
+                            </button>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="action" id="qsQ-8o-Q0W">
                             <connections>
                                 <action selector="changeUserPressed:" destination="vXZ-lx-hvc" id="5Ar-Ct-rVn"/>
@@ -29,7 +39,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2120" y="1098"/>
+            <point key="canvasLocation" x="1328" y="1482"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="cP5-Th-VBT">
@@ -161,4 +171,7 @@
     <resources>
         <image name="defaultPhoto" width="540" height="540"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="Dx8-g2-kzC"/>
+    </inferredMetricsTieBreakers>
 </document>
