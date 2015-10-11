@@ -8,8 +8,8 @@ import UserDatabase
 rest = Flask(__name__)
 NUM_MOVIES = 10
 CORS(rest)
-NUM_MOVIES = 5
-NUM_CATEGORIES = 5
+NUM_MOVIES = 10
+NUM_CATEGORIES = 10
 NUM_MATCHES = 1
 PREFERENCE_MATRIX = np.identity(10)
 PREFERENCE_DICT = {'Forrest_Gump':0, 'Frozen':1, 'Star_Wars':2, 'Parent_Trap':3,'The_Notebook':4, 'Harry_Potter':5, 'Bat_Man':6, 'Finding_Nemo':7, 'The_Hangover':8, 'Inception':9}
