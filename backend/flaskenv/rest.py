@@ -4,7 +4,7 @@ from flask.ext.cors import CORS
 import numpy as np
 import operator
 import json
-import UserDatabase as ud
+# import UserDatabase as ud
 
 rest = Flask(__name__)
 NUM_MOVIES = 10
@@ -37,11 +37,11 @@ def get_not_rated(username):
 	s = []
 	result = []
 #  # GET INFO FROM DATABASE
-	# for x in database:
-	# 	if x['username'] == username:
-	# 		s = x['preferences']
-	# 		break
-	s = ud.getPreference(username)
+	for x in database:
+		if x['username'] == username:
+			s = x['preferences']
+			break
+	# s = ud.getPreference(username)
 	i = 0
 	while i < len(s):
 		if s[i] == 0:
@@ -74,10 +74,11 @@ def create_user():
 		zerolist.append(0)
 
 	u = {'username':request.json['username'], 'imgurl':'../img/default.jpg', 'preference':zerolist}
-	a = {'username':request.json['username'], 'imgurl':'../img/default.jpg', 'preference':zerolist}
+	# a = {'username':request.json['username'], 'imgurl':'../img/default.jpg', 'preference':zerolist}
  #    # SEND INFO TO DATABASE
-	ud.addUser(u)
-	return jsonify({'user': a}), 201
+	# ud.addUser(u)
+	database.append(u)
+	return jsonify({'user': u}), 201
 
 
 # # SEND PREFERENCES
