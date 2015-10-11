@@ -7,7 +7,7 @@ curl -i -H "Content-Type: application/json" -X POST -d '{"username":"obama", "mo
 
 curl -i -H "Content-Type: application/json" -X POST -d '{"username":"alexk", "movie_likes": ["Frozen", "Star_Wars"], "movie_dislikes":[]}' http://localhost:5000/sendscore
 
-POST CHILL
+GET CHILL
 curl -i -H "Content-Type: application/json" -X POST -d '{"username":"alexk", "chill_person": "obama"}' http://localhost:5000/chill
 
 GET MATCHES
