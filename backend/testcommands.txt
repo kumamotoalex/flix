@@ -18,5 +18,11 @@ curl -i http://localhost:5000/resetuser/obama
 GET NOT RATED
 curl -i http://localhost:5000/getnotrated/obama
 
+INSTANTIATE MONGO
+mongod --db data/db
+
+DELETE DB
+mongo user_database --eval "db.dropDatabase()"
+
 
 
