@@ -33,14 +33,13 @@ database = [
 # # GET NOT RATED
 @rest.route('/getnotrated/<string:username>', methods = ['GET'])
 def get_not_rated(username):
-	s = []
 	result = []
 #  # GET INFO FROM DATABASE
 	# for x in database:
 	# 	if x['username'] == username:
 	# 		s = x['preferences']
 	# 		break
-	UserDatabase.getPreferences(username)
+	s = UserDatabase.getPreference(username)
 	i = 0
 	while i < len(s):
 		if s[i] == 0:
@@ -73,11 +72,11 @@ def create_user():
 		zerolist.append(0)
 
 	user = {
-        'username': request.json['username'],
-        'imgurl': "../img/default.jpg",
-        'preferences': zerolist
-    }
-    a = {
+	       'username': request.json['username'],
+	       'imgurl': "../img/default.jpg",
+	       'preferences': zerolist
+	   }
+	a = {
         'username': request.json['username'],
         'imgurl': "../img/default.jpg",
         'preferences': zerolist
