@@ -39,7 +39,7 @@ def get_not_rated(username):
 	i = 0
 	while i < len(s):
 		if s[i] == 0:
-			result.append(INDEX_DICT[i])
+			result.append({INDEX_DICT[i]: "../img/" + INDEX_DICT[i]})
 		i += 1
 
 	return jsonify({"notrated": result})
