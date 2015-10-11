@@ -31,18 +31,15 @@ database = [
 ]
 # ---------------------------------------------------------
 # # CHILL!!!
-@rest.route('/chill', methods = ['POST'])
-def send_chill():
+@rest.route('/chill/<string:username>/<string:chillname>', methods = ['GET'])
+def send_chill(username, chillname):
 	# WHAT WE NEED TO BE SENT
-	u = request.json['username']
-	c = request.json['chill_person']
+	s = UserDatabase.getChill(chillname)
+	if username not in s:
+		s.append(username)
+		UserDatabase.changeChill(chillname, s)
 
-	s = UserDatabase.getChill(c)
-	if u not in s:
-		s.append(u)
-		UserDatabase.changeChill(c, s)
-
-	return jsonify({'chillers': UserDatabase.getChill(c)}), 201
+	return jsonify({'chillers': UserDatabase.getChill(chillname)}), 201
 
 
 # # GET NOT RATED
