@@ -11,8 +11,8 @@ NUM_MOVIES = 5
 NUM_CATEGORIES = 5
 NUM_MATCHES = 1
 PREFERENCE_MATRIX = np.identity(10)
-PREFERENCE_DICT = {'Forrest Gump':0, 'Frozen':1, 'Star_Wars':2, 'Parent_Trap':3,'The_Notebook':4, 'Harry_Potter':5, 'Bat_Man':6, 'Shawshank_Redemption':7, 'The_Hangover':8, 'Inception':9}
-INDEX_DICT = {0:'Forrest Gump', 1:'Frozen', 2:'Star_Wars', 3:'Parent_Trap',4:'The_Notebook', 5:'Harry_Potter', 6:'Bat_Man', 7:'Shawshank_Redemption', 8:'The_Hangover', 9:'Inception'}
+PREFERENCE_DICT = {'Forrest_Gump':0, 'Frozen':1, 'Star_Wars':2, 'Parent_Trap':3,'The_Notebook':4, 'Harry_Potter':5, 'Bat_Man':6, 'Finding_Nemo':7, 'The_Hangover':8, 'Inception':9}
+INDEX_DICT = {0:'Forrest_Gump', 1:'Frozen', 2:'Star_Wars', 3:'Parent_Trap',4:'The_Notebook', 5:'Harry_Potter', 6:'Bat_Man', 7:'Finding_Nemo', 8:'The_Hangover', 9:'Inception'}
 
 # ----------------WORK AROUND DATABASE---------------------
 database = [
