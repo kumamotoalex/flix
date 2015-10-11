@@ -17,5 +17,9 @@ curl -i http://localhost:5000/resetuser/obama
 GET NOT RATED
 curl -i http://localhost:5000/getnotrated/obama
 
+START MONGODB
+mongod --dbpath data/db
 
-
+CLEAR DB
+mongo <dbname> --eval "db.dropDatabase()"
+#dbname = user_database#

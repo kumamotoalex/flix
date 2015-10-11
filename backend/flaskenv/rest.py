@@ -67,27 +67,27 @@ def reset_user(username):
 	return jsonify({'user': UserDatabase.getPreference(username)})
 
 # # CREATE USER - passes in user_name
-@rest.route('/makeuser', methods = ['POST'])
-def create_user():
+@rest.route('/makeuser/<string:username>', methods = ['GET'])
+def create_user(username):
 	# CREATE NEW USER
 	zerolist = []
 	for i in range(0, NUM_MOVIES):
 		zerolist.append(0)
 
 	user = {
-	       'username': request.json['username'],
+	       'username': username,
 	       'imgurl': "../img/default.jpg",
 	       'preferences': zerolist
 	   }
 	a = {
-        'username': request.json['username'],
+        'username': username,
         'imgurl': "../img/default.jpg",
         'preferences': zerolist
     }
  #    # SEND INFO TO DATABASE
 	UserDatabase.addUser(user)
 
-	return jsonify({'user': a}), 201
+	return jsonify({'user': a})
 
 
 # # SEND PREFERENCES
