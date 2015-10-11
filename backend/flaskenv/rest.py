@@ -1,6 +1,7 @@
 #!flask/bin/python
 from flask import Flask, request, jsonify, abort
 import numpy as np
+import operator
 
 rest = Flask(__name__)
 NUM_MOVIES = 5
@@ -12,13 +13,13 @@ PREFERENCE_DICT = {'Forrest Gump':0, 'Frozen':1, 'Star Wars':2, 'Parent Trap':3,
 # ----------------WORK AROUND DATABASE---------------------
 database = [
     {
-        'username': 'kevinj',
-        'imgurl': 'images/kevinj.jpeg',
+        'username': 'obama',
+        'imgurl': 'images/obama.jpeg',
         'preferences': [0,1,1,0,1] 
     },
     {
-        'username': 'abrahaml',
-        'imgurl': 'images/abrahaml.jpeg',
+        'username': 'oskibear',
+        'imgurl': 'images/oskibear.jpeg',
         'preferences': [1,0,0,1,0] 
     }
 ]
@@ -52,8 +53,11 @@ def send_preferences():
 	m = request.json['movie_likes']
 	d = request.json['movie_dislikes']
 	s = []
-	for i in range(0, NUM_MOVIES):
-		s.append(0)
+	
+	for x in database:
+		if x['username'] == u:
+			s = x['preferences']
+			break
 	for x in m:
 		s[PREFERENCE_DICT[x]] = 1
 	for x in d:
@@ -87,14 +91,14 @@ def get_matches(username):
 	p = None
 	for x in database:
 		if x['username'] == username:
-			p = numpy.array(x['preferences'])
+			p = np.array(x['preferences'])
 	for y in database:
 		if y['username'] != username:
-			comparison = numpy.array(y['preferences'])
+			comparison = np.array(y['preferences'])
 			results[y['username']] = comparison.dot(p)
-	# Put the top results into returnjson
+	# # Put the top results into returnjson
 	for i in range(0,NUM_MATCHES):
-		name = max(stats.iteritems(), key=operator.itemgetter(1))[0]
+		name = max(results.iteritems(), key=operator.itemgetter(1))[0]
 		returnjson.append(name)
 		results.pop(name)
 
