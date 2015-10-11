@@ -19,7 +19,7 @@ export default class SuggestionBar extends Component {
     return (
       <div className="row">
           <div className="col m2 offset-m12">
-              <IconButton iconClassName="material-icons" tooltipPosition="bottom-center" tooltip="Reset preferences">autorenew</IconButton>
+              <IconButton iconClassName="material-icons" tooltipPosition="top-center" tooltip="Reset preferences" onClick={this.reset}>autorenew</IconButton>
           </div>
         <div className="row">
           <MovieList name={this.props.name} update={this.getNotRated} notRated={this.state.notRated}/>
@@ -33,7 +33,6 @@ export default class SuggestionBar extends Component {
   }
 
   getNotRated = () => {
-    var self = this;
     var url = 'http://localhost:5000/getnotrated/' + this.props.name;
     $.ajax({
       url: url,
@@ -44,6 +43,23 @@ export default class SuggestionBar extends Component {
       success: function(data) {
         console.log(data);
         this.setState(data);
+      }.bind(this),
+      error: function(data) {
+        console.error(data.statusText);
+      }.bind(this)
+    });
+  }
+
+  reset = () => {
+    var url = 'http://localhost:5000/resetuser/' + this.props.name;
+    $.ajax({
+      url: url,
+      contentType: 'application/json',
+      dataType:'json',
+      type: 'GET',
+      processData: false,
+      success: function(data) {
+        this.getNotRated();
       }.bind(this),
       error: function(data) {
         console.error(data.statusText);
