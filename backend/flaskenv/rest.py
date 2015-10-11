@@ -1,10 +1,13 @@
 #!flask/bin/python
 from flask import Flask, request, jsonify, abort
+from flask.ext.cors import CORS
 import numpy as np
 import operator
 
 rest = Flask(__name__)
 NUM_MOVIES = 10
+CORS(rest)
+NUM_MOVIES = 5
 NUM_CATEGORIES = 5
 NUM_MATCHES = 1
 PREFERENCE_MATRIX = np.identity(10)
@@ -32,9 +35,9 @@ def get_not_rated(username):
 	s = []
 	result = []
 #  # GET INFO FROM DATABASE
- 	for x in database:
- 		if x['username'] == username:
- 			s = x['preferences']
+	for x in database:
+		if x['username'] == username:
+			s = x['preferences']
 			break
 	i = 0
 	while i < len(s):
@@ -52,9 +55,9 @@ def reset_user(username):
 		zerolist.append(0)
 
 #  # SEND INFO TO DATABASE
- 	for x in database:
- 		if x['username'] == username:
- 			x['preferences'] = zerolist
+	for x in database:
+		if x['username'] == username:
+			x['preferences'] = zerolist
 			return jsonify({'user': x['preferences']})
 	abort(404)
 
@@ -81,6 +84,8 @@ def create_user():
 @rest.route('/sendscore', methods = ['POST'])
 def send_preferences():
 	# WHAT WE NEED TO BE SENT
+	print(request.data)
+	print(request.args)
 	u = request.json['username']
 	m = request.json['movie_likes']
 	d = request.json['movie_dislikes']

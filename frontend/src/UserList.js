@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import Avatar from 'material-ui/lib/avatar';
-import Dialog from 'material-ui/lib/dialog';
 import Table from 'material-ui/lib/table/table';
 import TableHeader from 'material-ui/lib/table/table-header';
 import TableRow from 'material-ui/lib/table/table-row';
@@ -8,7 +7,7 @@ import TableHeaderColumn from 'material-ui/lib/table/table-header-column';
 import TableRowColumn from 'material-ui/lib/table/table-row-column';
 import TableBody from 'material-ui/lib/table/table-body';
 import RaisedButton from 'material-ui/lib/raised-button';
-
+import MapDialog from './MapDialog.js';
 let standardActions = [
   { text: 'Cancel' },
   { text: 'Submit' }
@@ -29,6 +28,10 @@ export default class UserList extends Component {
       </Table>
     );
   }
+
+  componentWillMount() {
+    //GET list of matched users
+  }
 }
 
 class User extends Component {
@@ -40,7 +43,7 @@ class User extends Component {
             John Smith
           </TableRowColumn>
           <TableRowColumn>
-            <RaisedButton label="Chill" primary={true} />
+            <MapDialog />
           </TableRowColumn>
         </TableRow>
     );
