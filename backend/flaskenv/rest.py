@@ -106,6 +106,7 @@ def send_preferences():
 	# 	if x['username'] == u:
 	# 		s = x['preferences']
 	# 		break
+
 	for x in m:
 		s[PREFERENCE_DICT[x]] = 1
 	for x in d:

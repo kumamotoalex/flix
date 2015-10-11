@@ -63,6 +63,14 @@ def changeAddress(user, newAddress):
 			return 1
 	return 0
 
+#Returns all members within our database represented as a string array of member usernames
+# @return an array of strings
+def returnMemberArray():
+	returned = []
+	for iterUser in user_collection.find():
+		returned.append(iterUser["username"])
+	return returned
+
 
 def printAll():
 	for iterUser in user_collection.find():
