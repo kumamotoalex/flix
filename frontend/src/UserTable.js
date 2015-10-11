@@ -37,11 +37,11 @@ export default class UserTable extends Component {
 
   componentWillMount() {
     this.getUserList();
-    //setInterval(this.getUserList, 500);
+    setInterval(this.getUserList, 500);
   }
 
   getUserList = () => {
-    var url = 'http://localhost:5000/getmatches/' + 'obama';
+    var url = 'http://localhost:5000/getmatches/' + this.props.name;
     $.ajax({
       url: url,
       contentType: 'application/json',

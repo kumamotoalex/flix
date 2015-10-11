@@ -22,7 +22,7 @@ export default class SuggestionBar extends Component {
               <IconButton iconClassName="material-icons" tooltipPosition="bottom-center" tooltip="Reset preferences">autorenew</IconButton>
           </div>
         <div className="row">
-          <MovieList update={this.getNotRated} notRated={this.state.notRated}/>
+          <MovieList name={this.props.name} update={this.getNotRated} notRated={this.state.notRated}/>
         </div>
       </div>
     );
@@ -34,7 +34,7 @@ export default class SuggestionBar extends Component {
 
   getNotRated = () => {
     var self = this;
-    var url = 'http://localhost:5000/getnotrated/' + 'obama';
+    var url = 'http://localhost:5000/getnotrated/' + this.props.name;
     $.ajax({
       url: url,
       contentType: 'application/json',
@@ -42,6 +42,7 @@ export default class SuggestionBar extends Component {
       type: 'GET',
       processData: false,
       success: function(data) {
+        console.log(data);
         this.setState(data);
       }.bind(this),
       error: function(data) {
@@ -54,7 +55,7 @@ class MovieList extends Component {
   render() {
     var Movies = this.props.notRated.slice(0,4).map(function(movie, i){
       return (
-        <MovieCard update = {this.props.update} title={movie['title']} url = {movie['url']} />
+        <MovieCard name={this.props.name} update = {this.props.update} title={movie['title']} url = {movie['url']} />
       )
     }.bind(this));
     return (
@@ -89,7 +90,7 @@ class MovieCard extends Component {
 
   likeMovie = () => {
       var data = {
-      'username': 'obama',
+      'username': this.props.name,
       'movie_likes': [this.props.title],
       'movie_dislikes': []
       };
@@ -113,7 +114,7 @@ class MovieCard extends Component {
 
   dislikeMovie = () => {
     var data = {
-    'username': 'obama',
+    'username': this.props.name,
     'movie_likes': [],
     'movie_dislikes': [this.props.title]
     };

@@ -6,8 +6,8 @@ export default class Body extends Component {
   render() {
     return (
       <div className="container">
-        <SuggestionBar />
-        <UserTable />
+        <SuggestionBar name={this.props.name}/>
+        <UserTable name={this.props.name}/>
       </div>
     );
   }
