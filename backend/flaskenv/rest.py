@@ -119,7 +119,7 @@ def send_preferences():
 	# 		return jsonify({'score': s}), 201
 	# abort(404)
 	UserDatabase.changePreference(u, s)
-	return jsonify({'score': UserDatabase.getPreference(s)})
+	return jsonify({'score': UserDatabase.getPreference(u)})
 	
 
 # # # GET PREFERENCES - return PREFERENCES, URL -DEPRECATED
