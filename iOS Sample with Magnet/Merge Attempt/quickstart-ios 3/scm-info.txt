@@ -1,3 +1,0 @@
-* (detached from tag-message-release-1.10.3) cd8b7c8c36511a4474f6026976b88109c784dbd2 Merge pull request #43 from magnetsystems/develop
-  release-1.10                               cd8b7c8c36511a4474f6026976b88109c784dbd2 Merge pull request #43 from magnetsystems/develop
-Build info: gh-message-samples-package, 354
